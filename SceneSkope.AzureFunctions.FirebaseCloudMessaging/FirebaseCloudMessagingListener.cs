@@ -1,4 +1,5 @@
-﻿using Matrix;
+﻿using DotNetty.Transport.Channels;
+using Matrix;
 using Matrix.Network.Resolver;
 using Matrix.Xmpp.Client;
 using Microsoft.Azure.WebJobs.Host.Executors;
@@ -59,14 +60,26 @@ namespace SceneSkope.AzureFunctions.FirebaseCloudMessaging
             {
                 port = 5235;
             }
+            var hasLogging = builder.TryGetValue("logging", out var logging);
 
-            _client = new XmppClient
+            var pipelineInitializerAction = new Action<IChannelPipeline>(pipeline =>
+            {
+                if (hasLogging)
+                {
+                    pipeline.AddFirst(new LoggingHandler(_logger));
+                }
+            });
+
+            _client = new XmppClient(pipelineInitializerAction)
             {
                 XmppDomain = "gcm.googleapis.com",
                 Username = username,
                 Password = password,
                 HostnameResolver = new StaticNameResolver("gcm-xmpp.googleapis.com", port: port, directTls: true)
             };
+            _client.XmppXElementStreamObserver
+                .Subscribe(el => _logger.LogInformation("Got element: {Element}", el));
+
             _client.XmppXElementStreamObserver
                 .Where(el => el is Message)
                 .SelectMany(e => HandleMessageAsync((Message)e))
@@ -142,6 +155,7 @@ namespace SceneSkope.AzureFunctions.FirebaseCloudMessaging
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Stopping...");
             _started = false;
             var client = Interlocked.Exchange(ref _client, default);
             if (client != null)
