@@ -47,7 +47,18 @@ namespace SceneSkope.AzureFunctions.FirebaseCloudMessaging
             var builder = new DbConnectionStringBuilder { ConnectionString = _connectionString };
             var username = (string)builder["username"];
             var password = (string)builder["password"];
-            const int port = 5236;
+            int port;
+            if (builder.TryGetValue("port", out var portValue))
+            {
+                if (!int.TryParse((string)portValue, out port))
+                {
+                    throw new ArgumentException($"Failed to parse port from {portValue}");
+                }
+            }
+            else
+            {
+                port = 5235;
+            }
 
             _client = new XmppClient
             {

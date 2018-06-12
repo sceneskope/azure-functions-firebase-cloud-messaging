@@ -15,4 +15,8 @@ The listener _should_ handle acks and draining correctly, but let's see what hap
 
 The simple example in [TestFcm](TestFcm/) should help.
 
+The connection string for the trigger should be in the format of:
+    `Username=xxxx@gcm.googleapis.com;Password=yyyy;Port=5235`
+
+If `Port` is missed out it defaults to 5235
 

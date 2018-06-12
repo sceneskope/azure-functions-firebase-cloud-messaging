@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneSkope.AzureFunctions.FirebaseCloudMessaging", "SceneSkope.AzureFunctions.FirebaseCloudMessaging\SceneSkope.AzureFunctions.FirebaseCloudMessaging.csproj", "{60AABFC7-6A6E-4380-995B-405120A8E3A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SceneSkope.AzureFunctions.FirebaseCloudMessaging", "SceneSkope.AzureFunctions.FirebaseCloudMessaging\SceneSkope.AzureFunctions.FirebaseCloudMessaging.csproj", "{60AABFC7-6A6E-4380-995B-405120A8E3A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFcm", "TestFcm\TestFcm.csproj", "{FE1CA2A2-BFEF-4C2E-AAB3-E033BFA1D015}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestFcm", "TestFcm\TestFcm.csproj", "{FE1CA2A2-BFEF-4C2E-AAB3-E033BFA1D015}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D7F877D8-D1BB-45B3-BADC-E93C12F9F7C1}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
